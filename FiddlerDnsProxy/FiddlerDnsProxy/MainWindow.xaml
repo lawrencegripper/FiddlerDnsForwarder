@@ -3,6 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="FiddlerDnsProxy" Height="350" Width="525" Loaded="Window_Loaded">
     <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Bound IPs:"/>
+                <TextBlock Text="{Binding IpString}"/>
+            </StackPanel>
+            <ComboBox>
+                <TextBlock Text="All"/>
+                <TextBlock Text="Limited to domain"/>
+                <TextBlock Text="domain wildcard"/>
+            </ComboBox>
+            <Button>Start</Button>
+        </StackPanel>
         
     </Grid>
 </Window>
