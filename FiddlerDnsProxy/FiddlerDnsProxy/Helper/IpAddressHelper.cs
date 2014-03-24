@@ -6,14 +6,13 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FiddlerDnsProxy.Helper
+namespace FiddlerDnsProxy
 {
     class IpAddressHelper
     {
-        public string GetIpAddressString()
+        public IEnumerable<string> GetIpAddressString()
         {
-            var ips = String.Concat(GetIpsForNetworkAdapters().Select(x=> string.Concat(x.ToString(), ", ")));
-            return ips;
+            return GetIpsForNetworkAdapters().Select(x=>x.ToString());
         }
 
         private IEnumerable<IPAddress> GetIpsForNetworkAdapters()

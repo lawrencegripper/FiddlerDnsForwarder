@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace FiddlerDnsProxy.ViewModels
 {
@@ -14,6 +15,17 @@ namespace FiddlerDnsProxy.ViewModels
         public MainViewModel()
         {
             IpString = new IpAddressHelper().GetIpAddressString();
+            var remoteDnsServerIp = "8.8.8.8";
+            var serverIp = SelectedIp;
+            StartStopDnsServer = new DelegateCommand(() =>
+            {
+                using (InterceptingDnsServer dnsServer = new InterceptingDnsServer(remoteDnsServerIp, serverIp, RedirectRecord, new PortForwardingManager()))
+                {
+                    ConfigureEventsAndStartFiddler(80);
+                    Console.WriteLine("Server running");
+                    Console.ReadLine();
+                }
+            });
         }
 
         private string _ipString;
@@ -23,7 +35,26 @@ namespace FiddlerDnsProxy.ViewModels
             get { return _ipString; }
             set { _ipString = value; NotifyPropertyChanged(); }
         }
+
+        private string _selectedIP;
+
+        public string SelectedIp
+        {
+            get { return _selectedIP; }
+            set { _selectedIP = value; }
+        }
         
+
+        private bool _isRunning;
+
+        public bool IsRunning
+        {
+            get { return _isRunning; }
+            set { _isRunning = value; NotifyPropertyChanged(); }
+        }
+
+        public ICommand StartStopDnsServer;
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
