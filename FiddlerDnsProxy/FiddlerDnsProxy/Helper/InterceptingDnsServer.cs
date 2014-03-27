@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace FiddlerDnsProxy
 {
@@ -34,7 +35,14 @@ namespace FiddlerDnsProxy
 
         public void Dispose()
         {
-            _server.Stop();
+            try
+            {
+                _server.Stop();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to stop dns server {0}", ex.ToString());
+            }
         }
 
         DnsMessageBase ProcessQuery(DnsMessageBase message, IPAddress clientAddress, ProtocolType protocol)

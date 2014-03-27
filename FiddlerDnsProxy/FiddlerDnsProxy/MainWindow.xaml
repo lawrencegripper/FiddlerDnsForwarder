@@ -18,8 +18,8 @@
                 <TextBlock Text="Limited to domain"/>
                 <TextBlock Text="domain wildcard"/>-->
             </ComboBox>
-            <Button Command="{Binding StartRestartDnsServer}" Content="Start" Visibility="{Binding DnsServerInstance, ConverterParameter=true, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"/>
-            <Button Command="{Binding StartRestartDnsServer}" Content="Stop" Visibility="{Binding DnsServerInstance, ConverterParameter=true, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"/>
+            <Button Command="{Binding StartStopDnsServer}" Content="Start" />
+            <Button Command="{Binding StartStopDnsServer}" Content="Stop" Visibility="{Binding DnsServerInstance, ConverterParameter=true, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"/>
             <TextBlock Text="{Binding DnsServerInstance, Converter={StaticResource NullToStatusConverter}}"/>
         </StackPanel>
 
