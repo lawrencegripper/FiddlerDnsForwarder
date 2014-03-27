@@ -4,18 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ARSoft.Tools.Net.Dns;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
 
 namespace FiddlerDnsProxy
 {
-    class InterceptingDnsServer : IDisposable
+    public class InterceptingDnsServer : IDisposable
     {
         readonly string _endDnsIp;
         readonly string _serverIp;
@@ -31,6 +26,7 @@ namespace FiddlerDnsProxy
             _redirectRecord = redirectRecord;
             _portMan = portman;
             _server = new DnsServer(IPAddress.Any, 10, 10, ProcessQuery);
+            _server.Start();
         }
 
         public void Dispose()

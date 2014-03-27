@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FiddlerDnsProxy
 {
-    class PortForwardingManager
+    public class PortForwardingManager
     {
         readonly List<PortForwardingWrapper> currentForwarders = new List<PortForwardingWrapper>();
         public PortForwardingWrapper StartForwarding(int port, string remoteIp)

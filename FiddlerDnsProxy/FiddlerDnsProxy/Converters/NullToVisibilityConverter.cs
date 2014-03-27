@@ -13,7 +13,18 @@ namespace FiddlerDnsProxy.Converters
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value == null)
+            //reverse if parameter passed in. 
+            Func<bool> comparer;
+            if (parameter != null)
+            {
+                comparer = () => value != null;
+            }
+            else
+            {
+                comparer = () => value == null;
+            }
+
+            if (comparer.Invoke())
             {
                 return Visibility.Collapsed;
             }

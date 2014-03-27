@@ -12,7 +12,7 @@ namespace FiddlerDnsProxy.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        private const string relayDnsServer = "8.8.8.8";
+        private const string relayDnsServer = "8.8.4.4";
         public MainViewModel()
         {
             var IpHelper = new IpAddressHelper();
@@ -26,14 +26,16 @@ namespace FiddlerDnsProxy.ViewModels
                 {
                     DnsServerInstance.Dispose();
                     DnsServerInstance = null;
-                    return;
                 }
-
-                DnsServerInstance = new InterceptingDnsServer(remoteDnsServerIp, serverIp, RedirectRecord, new PortForwardingManager());
+                else
+                {
+                    DnsServerInstance = new InterceptingDnsServer(remoteDnsServerIp, serverIp, RedirectRecord, new PortForwardingManager());
+                }
+                NotifyPropertyChanged("DnsServerInstance");
             });
         }
 
-        private InterceptingDnsServer DnsServerInstance { get; set; }
+        public InterceptingDnsServer DnsServerInstance { get; set; }
 
         public ObservableCollection<string> IpAddresses { get; set; }
 
@@ -47,13 +49,13 @@ namespace FiddlerDnsProxy.ViewModels
         }
 
         private string _redirectRecord;
-        
+
         public string RedirectRecord
         {
             get { return _redirectRecord; }
             set { _redirectRecord = value; NotifyPropertyChanged(); }
         }
-        
+
 
         private bool _isRunning;
 
