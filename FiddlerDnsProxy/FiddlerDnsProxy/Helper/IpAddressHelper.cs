@@ -22,7 +22,7 @@ namespace FiddlerDnsProxy
                         where i.OperationalStatus == OperationalStatus.Up
                         select new { name = i.Name, ip = GetIpFromUnicastAddresses(i) };
 
-            return nics2.Select(x => x.ip);
+            return nics2.Where(x=>x.ip!=null).Select(x => x.ip);
         }
 
         private IPAddress GetIpFromUnicastAddresses(NetworkInterface i)

@@ -1,20 +1,27 @@
-﻿<Window x:Class="FiddlerDnsProxy.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="FiddlerDnsProxy" Height="350" Width="525" Loaded="Window_Loaded">
+        xmlns:Converters="clr-namespace:FiddlerDnsProxy.Converters" x:Class="FiddlerDnsProxy.MainWindow"
+        Title="FiddlerDnsProxy" Height="350" Width="525" Loaded="Window_Loaded"
+        >
+    <Window.Resources>
+        <Converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        <Converters:NullToStatusConverter x:Key="NullToStatusConverter"/>
+    </Window.Resources>
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Bound IPs:"/>
-                <TextBlock Text="{Binding IpString}"/>
             </StackPanel>
-            <ComboBox>
-                <TextBlock Text="All"/>
+            <ComboBox ItemsSource="{Binding IpAddresses}" SelectedItem="{Binding SelectedIp}">
+                <!--<TextBlock Text="All"/>
                 <TextBlock Text="Limited to domain"/>
-                <TextBlock Text="domain wildcard"/>
+                <TextBlock Text="domain wildcard"/>-->
             </ComboBox>
-            <Button>Start</Button>
+            <Button Command="{Binding StartRestartDnsServer}" Content="Start" Visibility="{Binding DnsServerInstance, ConverterParameter=true, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"/>
+            <Button Command="{Binding StartRestartDnsServer}" Content="Stop" Visibility="{Binding DnsServerInstance, ConverterParameter=true, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"/>
+            <TextBlock Text="{Binding DnsServerInstance, Converter={StaticResource NullToStatusConverter}}"/>
         </StackPanel>
-        
+
     </Grid>
 </Window>

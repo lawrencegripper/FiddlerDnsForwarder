@@ -1,6 +1,6 @@
-﻿using FiddlerDnsProxy.Helper;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -12,36 +12,46 @@ namespace FiddlerDnsProxy.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private const string relayDnsServer = "8.8.8.8";
         public MainViewModel()
         {
-            IpString = new IpAddressHelper().GetIpAddressString();
-            var remoteDnsServerIp = "8.8.8.8";
+            var IpHelper = new IpAddressHelper();
+            IpAddresses = new ObservableCollection<string>(IpHelper.GetIpAddressString());
+            var remoteDnsServerIp = relayDnsServer;
+            RedirectRecord = "bbc.co.uk";
             var serverIp = SelectedIp;
             StartStopDnsServer = new DelegateCommand(() =>
             {
-                using (InterceptingDnsServer dnsServer = new InterceptingDnsServer(remoteDnsServerIp, serverIp, RedirectRecord, new PortForwardingManager()))
+                if (DnsServerInstance != null)
                 {
-                    ConfigureEventsAndStartFiddler(80);
-                    Console.WriteLine("Server running");
-                    Console.ReadLine();
+                    DnsServerInstance.Dispose();
+                    DnsServerInstance = null;
+                    return;
                 }
+
+                DnsServerInstance = new InterceptingDnsServer(remoteDnsServerIp, serverIp, RedirectRecord, new PortForwardingManager());
             });
         }
 
-        private string _ipString;
+        private InterceptingDnsServer DnsServerInstance { get; set; }
 
-        public string IpString
-        {
-            get { return _ipString; }
-            set { _ipString = value; NotifyPropertyChanged(); }
-        }
+        public ObservableCollection<string> IpAddresses { get; set; }
+
 
         private string _selectedIP;
 
         public string SelectedIp
         {
             get { return _selectedIP; }
-            set { _selectedIP = value; }
+            set { _selectedIP = value; NotifyPropertyChanged(); }
+        }
+
+        private string _redirectRecord;
+        
+        public string RedirectRecord
+        {
+            get { return _redirectRecord; }
+            set { _redirectRecord = value; NotifyPropertyChanged(); }
         }
         
 
@@ -53,8 +63,7 @@ namespace FiddlerDnsProxy.ViewModels
             set { _isRunning = value; NotifyPropertyChanged(); }
         }
 
-        public ICommand StartStopDnsServer;
-
+        public ICommand StartStopDnsServer { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -65,5 +74,6 @@ namespace FiddlerDnsProxy.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
     }
 }

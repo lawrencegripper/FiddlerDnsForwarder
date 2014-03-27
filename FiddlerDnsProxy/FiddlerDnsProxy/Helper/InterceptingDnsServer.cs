@@ -16,7 +16,6 @@ namespace FiddlerDnsProxy
 {
     class InterceptingDnsServer : IDisposable
     {
-
         readonly string _endDnsIp;
         readonly string _serverIp;
         string _redirectIp;
