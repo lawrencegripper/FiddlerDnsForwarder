@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30218.0
+VisualStudioVersion = 12.0.30312.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiddlerDnsProxy", "FiddlerDnsProxy\FiddlerDnsProxy.csproj", "{A9FBA4E6-6329-41C1-BE80-DDA371516A24}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B38D32BD-653C-4BA9-B0CB-044CCBB52DF8}"
+	ProjectSection(SolutionItems) = preProject
+		FiddlerCore.dll = FiddlerCore.dll
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

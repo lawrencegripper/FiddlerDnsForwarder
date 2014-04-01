@@ -58,6 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\NullToStatusConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="Helper\FiddlerWrapper.cs" />
     <Compile Include="Helper\InterceptingDnsServer.cs" />
     <Compile Include="Helper\IpAddressHelper.cs" />
     <Compile Include="Helper\PortForwardingManager.cs" />

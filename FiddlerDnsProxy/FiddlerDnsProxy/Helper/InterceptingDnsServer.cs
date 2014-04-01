@@ -19,7 +19,7 @@ namespace FiddlerDnsProxy
         readonly string _redirectRecord;
         readonly DnsServer _server;
         readonly PortForwardingManager _portMan;
-        public InterceptingDnsServer(string endDnsIp, string serverIp, string redirectRecord, PortForwardingManager portman)
+        public InterceptingDnsServer(string endDnsIp, string serverIp, string redirectRecord, PortForwardingManager portman = null)
         {
             _endDnsIp = endDnsIp;
             _serverIp = serverIp;
@@ -56,7 +56,10 @@ namespace FiddlerDnsProxy
                 Console.WriteLine("Redirecting");
                 SetupReponse(query, question);
 
-                SetupForwarding(answer);
+                if (_portMan != null)
+                {
+                    SetupForwarding(answer);
+                }
 
                 return query;
             }
