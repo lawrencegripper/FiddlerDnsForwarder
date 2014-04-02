@@ -12,7 +12,6 @@ namespace FiddlerDnsProxy.Helper
 
         public FiddlerWrapper(EventPubSub pubSub)
         {
-
             FiddlerApplication.Log.OnLogString += (s, o) => 
             {
                 pubSub.Publish<FiddlerEvent>(new FiddlerEvent() { Log = o.LogString });

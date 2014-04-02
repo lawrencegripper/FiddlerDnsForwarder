@@ -52,7 +52,7 @@ namespace FiddlerDnsProxy.ViewModels
                 }
                 else
                 {
-                    DnsServerInstance = new InterceptingDnsServer(eventPubSub, new PortForwardingManager());
+                    DnsServerInstance = new InterceptingDnsServer(eventPubSub);
                     DnsServerInstance.Start(remoteDnsServerIp, SelectedIp, RedirectRecord);
 
                     FiddlerServerInstance = new FiddlerWrapper(eventPubSub);

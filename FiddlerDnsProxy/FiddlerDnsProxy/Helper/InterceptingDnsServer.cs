@@ -50,7 +50,8 @@ namespace FiddlerDnsProxy
 
         private void LogMessage(IPAddress clientIp, string message)
         {
-            var dnsEvent = new DnsEvent() { ClientIpAddress = clientIp.ToString(), Message = message };
+            
+            var dnsEvent = new DnsEvent() { ClientIpAddress ="", Message = message };
             _eventPubSub.Publish<DnsEvent>(dnsEvent);
         }
 
