@@ -24,7 +24,10 @@ namespace FiddlerDnsProxy.Helper
 
         public void Start(int port)
         {
-            FiddlerApplication.Startup(port, false, false);            
+            //try
+            //{
+                FiddlerApplication.Startup(port, false, false);            
+            //}
         }
 
         public void Dispose()
