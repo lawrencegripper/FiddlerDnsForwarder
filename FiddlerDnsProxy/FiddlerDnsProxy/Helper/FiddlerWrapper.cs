@@ -12,7 +12,7 @@ namespace FiddlerDnsProxy.Helper
 
         public FiddlerWrapper(EventPubSub pubSub)
         {
-            FiddlerApplication.Log.OnLogString += (s, o) => 
+            FiddlerApplication.Log.OnLogString += (s, o) =>
             {
                 pubSub.Publish<FiddlerEvent>(new FiddlerEvent() { Log = o.LogString });
             };
@@ -20,13 +20,17 @@ namespace FiddlerDnsProxy.Helper
             {
                 pubSub.Publish<FiddlerEvent>(new FiddlerEvent() { Log = session.fullUrl, Session = session });
             };
+            FiddlerApplication.OnNotification += (s, n) =>
+            {
+                pubSub.Publish<FiddlerEvent>(new FiddlerEvent() { Log = n.NotifyString, Session = null });
+            };
         }
 
         public void Start(int port)
         {
             //try
             //{
-                FiddlerApplication.Startup(port, false, false);            
+            FiddlerApplication.Startup(port, false, false);
             //}
         }
 
