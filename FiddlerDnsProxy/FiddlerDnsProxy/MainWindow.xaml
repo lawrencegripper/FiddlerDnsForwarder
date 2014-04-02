@@ -20,7 +20,8 @@
             </ComboBox>
             <Button Command="{Binding StartStopDnsServer}" Content="Start/Stop" />
             <TextBlock Text="{Binding DnsServerInstance, Converter={StaticResource NullToStatusConverter}}"/>
+            <ListBox x:Name="listBox" ItemsSource="{Binding Log}" VerticalContentAlignment="Stretch" Height="245"/>
         </StackPanel>
-
+        
     </Grid>
 </Window>

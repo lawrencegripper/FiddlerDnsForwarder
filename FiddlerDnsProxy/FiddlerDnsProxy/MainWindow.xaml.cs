@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -31,6 +32,23 @@ namespace FiddlerDnsProxy
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             DataContext = new MainViewModel();
+
+            Timer timer = new Timer();
+            timer.Interval = 300;
+            timer.Elapsed += timer_Elapsed;
+            timer.Start();
+        }
+
+        void timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (listBox.Items.Count == 0)
+            {
+                return;
+            }
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                listBox.ScrollIntoView(listBox.Items[listBox.Items.Count - 1]);
+            }));
         }
 
 
