@@ -11,7 +11,7 @@
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Bound IPs:"/>
+                <TextBlock Text="Use IP:"/>
             </StackPanel>
             <ComboBox ItemsSource="{Binding IpAddresses}" SelectedItem="{Binding SelectedIp}">
                 <!--<TextBlock Text="All"/>
@@ -20,7 +20,7 @@
             </ComboBox>
             <Button Command="{Binding StartStopDnsServer}" Content="Start/Stop" />
             <TextBlock Text="{Binding DnsServerInstance, Converter={StaticResource NullToStatusConverter}}"/>
-            <ListBox x:Name="listBox" ItemsSource="{Binding Log}" VerticalContentAlignment="Stretch" Height="245"/>
+            <ListBox x:Name="listBox" ItemsSource="{Binding Log}" VerticalContentAlignment="Stretch" Height="235"/>
         </StackPanel>
         
     </Grid>

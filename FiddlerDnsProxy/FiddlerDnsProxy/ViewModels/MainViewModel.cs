@@ -47,16 +47,16 @@ namespace FiddlerDnsProxy.ViewModels
                 {
                     DnsServerInstance.Dispose();
                     DnsServerInstance = null;
-                    FiddlerServerInstance.Dispose();
-                    FiddlerServerInstance = null;
+                    //FiddlerServerInstance.Dispose();
+                    //FiddlerServerInstance = null;
                 }
                 else
                 {
                     DnsServerInstance = new InterceptingDnsServer(eventPubSub);
                     DnsServerInstance.Start(remoteDnsServerIp, SelectedIp, RedirectRecord);
 
-                    FiddlerServerInstance = new FiddlerWrapper(eventPubSub);
-                    FiddlerServerInstance.Start(80);
+                    //FiddlerServerInstance = new FiddlerWrapper(eventPubSub);
+                    //FiddlerServerInstance.Start(80);
                 }
                 NotifyPropertyChanged("DnsServerInstance");
             });
